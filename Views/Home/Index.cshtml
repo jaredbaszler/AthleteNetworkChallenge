@@ -1,0 +1,57 @@
+﻿@model AthleteNetworkChallenge.Web.Models.IndexViewModel;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-left">
+    <div>
+        <form asp-controller="Home" asp-action="Index" method="post">
+            <div asp-validation-summary="ModelOnly"></div>
+            Names:  <input asp-for="NamesToSearch" /> <br />
+            <div style="font-style: italic">* Enter up to 10 names separated by commas</div>
+            <span asp-validation-for="NamesToSearch" class="text-danger"></span>
+            <br />
+            Only Display Highest/Lowest:  <input asp-for="FilterNames" /> <br />
+            <br />
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <div>
+        <table style="padding-top: 20px">
+            @foreach(var name in Model.Names)
+            {
+                <tr>
+                    <td style="font-weight: bold">
+                        @name.Name
+                    </td>
+                </tr>
+
+                if (@name.Countries?.Any() == false)
+                {
+                    <tr>
+                        <td></td>
+                        <td>
+                            Name Not Found
+                        </td>
+                    </tr>
+                }
+          
+            
+                @foreach(var country in @name.Countries) {
+                    <tr>
+                        <td></td>
+                        <td style="text-align: left">
+                            @country.CountryId
+                        </td>
+                    </tr>
+                    <tr style="padding-bottom: 4px">
+                        <td></td>
+                        <td style="text-align: start">
+                            @(country.Probability)%
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>
