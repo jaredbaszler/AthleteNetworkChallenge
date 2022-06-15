@@ -5,7 +5,7 @@
 
 <div class="text-left">
     <div>
-        <form asp-controller="Home" asp-action="Index" method="post">
+        <form asp-controller="Home" asp-action="Index">
             <div asp-validation-summary="ModelOnly"></div>
             Names:  <input asp-for="NamesToSearch" /> <br />
             <div style="font-style: italic">* Enter up to 10 names separated by commas</div>
@@ -41,7 +41,7 @@
                     <tr>
                         <td></td>
                         <td style="text-align: left">
-                            @country.CountryId
+                            @(Model.GetCountryFullName(country?.CountryId) ?? country?.CountryId)
                         </td>
                     </tr>
                     <tr style="padding-bottom: 4px">

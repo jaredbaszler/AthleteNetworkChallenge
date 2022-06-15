@@ -26,7 +26,7 @@ namespace AthleteNetworkChallenge.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(string namesToSearch, bool filterNames)
+        public async Task<IActionResult> Index(string? namesToSearch, bool filterNames)
         {
             var vm = new IndexViewModel();
             vm.Names = new List<NationalizeName>();
@@ -59,7 +59,8 @@ namespace AthleteNetworkChallenge.Web.Controllers
                 if (maxName != null)
                     names.Add(maxName);
 
-                if (minName != null)
+                // Don't display the same name again if it's the same as the max name
+                if (minName != null && maxName?.Name != minName.Name)
                     names.Add(minName);
             }
 
